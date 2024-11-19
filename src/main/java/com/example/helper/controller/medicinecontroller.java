@@ -27,7 +27,7 @@ public class medicinecontroller {
 //        return res;
 //    }
     @GetMapping("/getcold")
-    public String getColdList() {
+    public medicineAPI getColdList() {
 
             // JSON 데이터를 가져옴
             return medicineservice.getMedicineList();
@@ -41,7 +41,5 @@ public class medicinecontroller {
 //            System.out.println("Error message: " + e.getMessage());
 //            e.printStackTrace();
 //            throw new RuntimeException("Error processing JSON", e);
-//        }
-
     }
 }

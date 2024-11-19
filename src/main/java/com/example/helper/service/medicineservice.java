@@ -1,6 +1,7 @@
 package com.example.helper.service;
 
 import com.example.helper.config.WebClientConfig;
+import com.example.helper.entity.medicineAPI;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.json.simple.JSONObject;
@@ -24,7 +25,7 @@ public class medicineservice {
 
     private final static String key = "BGtEWN1IlvSGC1CZ%2BAwVeqDJdURuUgqhYHbjcRclDEwiqmQurBgqccTKfFaiFQKvBnYEM64oe6tvsfov%2BNK1%2FA%3D%3D";
 
-    public String getMedicineList() {
+    public medicineAPI getMedicineList() {
         var response =
                 webClient
                         .get()
@@ -37,11 +38,11 @@ public class medicineservice {
                                         .queryParam("type", "json")
                                         .build())
                         .retrieve()
-                        .bodyToMono(Map.class)
+                        .bodyToMono(medicineAPI.class)
                         .block();
 
         assert response != null;
-        return response.toString();
+        return response;
     }
 
 //
