@@ -26,20 +26,12 @@ public class medicinecontroller {
 //        String res = medicineservice.getMedicineList();
 //        return res;
 //    }
+
     @GetMapping("/getcold")
     public medicineAPI getColdList() {
 
             // JSON 데이터를 가져옴
             return medicineservice.getMedicineList();
 
-//            // Jackson ObjectMapper를 사용해 JSON을 객체로 변환
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // 정의되지 않은 필드 무시
-//            objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true); // 단일 값을 배열로 허용
-//            return objectMapper.readValue(jsonResponse, medicineAPI.class);
-//        } catch (Exception e) {
-//            System.out.println("Error message: " + e.getMessage());
-//            e.printStackTrace();
-//            throw new RuntimeException("Error processing JSON", e);
     }
 }
