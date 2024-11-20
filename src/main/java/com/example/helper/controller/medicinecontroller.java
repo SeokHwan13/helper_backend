@@ -32,5 +32,10 @@ public class medicinecontroller {
         return medicineservice.getMedicineList(eff);
     }
 
+    @GetMapping("/getquerymedicine")
+    public medicineAPI getQueryMedicine(@RequestParam String query) throws UnsupportedEncodingException {
+        System.out.println(query);
+        return medicineservice.getQueryMedicine(query);
+    }
 
 }

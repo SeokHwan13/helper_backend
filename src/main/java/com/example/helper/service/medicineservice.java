@@ -70,4 +70,25 @@ public class medicineservice {
         assert response != null;
         return response;
     }
+
+    public medicineAPI getQueryMedicine(String query) {
+        var response =
+                webClient
+                        .get()
+                        .uri(uriBuilder ->
+                                uriBuilder
+                                        .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
+                                        .queryParam("serviceKey", key)
+                                        .queryParam("itemName", query)
+                                        .queryParam("pageNo", "1")
+                                        .queryParam("numOfRows", "10")
+                                        .queryParam("type", "json")
+                                        .build())
+                        .retrieve()
+                        .bodyToMono(medicineAPI.class)
+                        .block();
+
+        assert response != null;
+        return response;
+    }
 }
