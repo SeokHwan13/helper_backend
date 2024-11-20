@@ -14,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -24,8 +25,11 @@ public class medicineservice {
     private WebClient webClient;
 
     private final static String key = "BGtEWN1IlvSGC1CZ%2BAwVeqDJdURuUgqhYHbjcRclDEwiqmQurBgqccTKfFaiFQKvBnYEM64oe6tvsfov%2BNK1%2FA%3D%3D";
+    private final static String[] efcyQesitm = {"감기","타박상","근육통","발열","두통","복통","치통"};
 
-    public medicineAPI getMedicineList() {
+
+    public medicineAPI getMedicineList(Integer eff) throws UnsupportedEncodingException {
+        String encoded = URLEncoder.encode(efcyQesitm[eff], "UTF-8");
         var response =
                 webClient
                         .get()
@@ -33,7 +37,8 @@ public class medicineservice {
                                 uriBuilder
                                         .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
                                         .queryParam("serviceKey", key)
-                                        .queryParam("pageNo", "3")
+                                        .queryParam("efcyQesitm", encoded)
+                                        .queryParam("pageNo", "1")
                                         .queryParam("numOfRows", "10")
                                         .queryParam("type", "json")
                                         .build())
@@ -45,13 +50,24 @@ public class medicineservice {
         return response;
     }
 
-//
-//    public List<medicine> getmedicine_() {
-//        return medicinerepository.findAll();
-//    }
+    public medicineAPI getMedicine(Integer itemSeq) {
+        var response =
+                webClient
+                        .get()
+                        .uri(uriBuilder ->
+                                uriBuilder
+                                        .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
+                                        .queryParam("serviceKey", key)
+                                        .queryParam("itemSeq", itemSeq)
+                                        .queryParam("pageNo", "1")
+                                        .queryParam("numOfRows", "10")
+                                        .queryParam("type", "json")
+                                        .build())
+                        .retrieve()
+                        .bodyToMono(medicineAPI.class)
+                        .block();
 
-
-//    public List<medicine> getColdList(Integer page) {
-//        return getMedicineList(page, "감기");
-//    }
+        assert response != null;
+        return response;
+    }
 }
