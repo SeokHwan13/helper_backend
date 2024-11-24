@@ -11,15 +11,17 @@ public class pharmacy {
     @Id
     Integer id;
 
+    String tel;
+
     String name;
 
     String post;
 
-    String road_post;
-
     String address;
 
     String road_address;
+
+    String road_post;
 
     String lat;
 
