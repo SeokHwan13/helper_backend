@@ -4,6 +4,7 @@ import com.example.helper.entity.pharmacy;
 import com.example.helper.service.pharmacyservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,7 +15,10 @@ public class pharmacycontroller {
     private pharmacyservice pharmacyservice;
 
     @GetMapping("/getpharmacy")
-    public List<pharmacy> getMap() {
-        return pharmacyservice.getpharmacy(19280);
+    public List<pharmacy> getMappharmacy(@RequestParam Double lat, @RequestParam Double lon) {
+        return pharmacyservice.getpharmacylist(lat,lon);
     }
+    //        public List<pharmacy> getpharmacy(@RequestParam Double lat, @RequestParam Double lon) {
+//        return pharmacyservice.getpharmacy(19274);
+//    }
 }

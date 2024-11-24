@@ -28,7 +28,7 @@ public class medicineservice {
     private final static String[] efcyQesitm = {"감기","타박상","근육통","발열","두통","복통","치통"};
 
 
-    public medicineAPI getMedicineList(Integer eff) throws UnsupportedEncodingException {
+    public medicineAPI getMedicineList(Integer eff, Integer page) throws UnsupportedEncodingException {
         String encoded = URLEncoder.encode(efcyQesitm[eff], "UTF-8");
         var response =
                 webClient
@@ -38,7 +38,7 @@ public class medicineservice {
                                         .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
                                         .queryParam("serviceKey", key)
                                         .queryParam("efcyQesitm", encoded)
-                                        .queryParam("pageNo", "1")
+                                        .queryParam("pageNo", page)
                                         .queryParam("numOfRows", "10")
                                         .queryParam("type", "json")
                                         .build())
@@ -71,7 +71,7 @@ public class medicineservice {
         return response;
     }
 
-    public medicineAPI getQueryMedicine(String query) {
+    public medicineAPI getQueryMedicine(String query, Integer page) {
         var response =
                 webClient
                         .get()
@@ -80,7 +80,7 @@ public class medicineservice {
                                         .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
                                         .queryParam("serviceKey", key)
                                         .queryParam("itemName", query)
-                                        .queryParam("pageNo", "1")
+                                        .queryParam("pageNo", page)
                                         .queryParam("numOfRows", "10")
                                         .queryParam("type", "json")
                                         .build())

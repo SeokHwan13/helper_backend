@@ -13,8 +13,6 @@ public class pharmacy {
 
     String tel;
 
-    String name;
-
     String post;
 
     String address;
@@ -23,8 +21,10 @@ public class pharmacy {
 
     String road_post;
 
-    String lat;
+    String name;
 
-    String lon;
+    Double lat;
+
+    Double lon;
 
 }

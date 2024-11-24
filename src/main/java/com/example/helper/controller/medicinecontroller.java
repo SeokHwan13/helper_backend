@@ -22,15 +22,15 @@ public class medicinecontroller {
     }
 
     @GetMapping("/getmedicinelist")
-    public medicineAPI getBruiseList(@RequestParam Integer eff) throws UnsupportedEncodingException {
+    public medicineAPI getBruiseList(@RequestParam Integer eff, @RequestParam Integer page) throws UnsupportedEncodingException {
         System.out.println(eff);
-        return medicineservice.getMedicineList(eff);
+        return medicineservice.getMedicineList(eff,page);
     }
 
     @GetMapping("/getquerymedicine")
-    public medicineAPI getQueryMedicine(@RequestParam String query) throws UnsupportedEncodingException {
+    public medicineAPI getQueryMedicine(@RequestParam String query, @RequestParam Integer page) throws UnsupportedEncodingException {
         System.out.println(query);
-        return medicineservice.getQueryMedicine(query);
+        return medicineservice.getQueryMedicine(query,page);
     }
 
 
