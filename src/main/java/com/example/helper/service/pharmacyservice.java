@@ -33,6 +33,9 @@ public class pharmacyservice {
         CoordinateReferenceSystem crs2097 = crsFactory.createFromName("EPSG:2097");
         CoordinateReferenceSystem crsWGS84 = crsFactory.createFromName("EPSG:4326");
 
+        double latOffset = 0.69747461314009;  // 위도 보정값
+        double lngOffset = -0.84281021637214; // 경도 보정값
+
         // 좌표 변환 객체 생성
         CoordinateTransformFactory transformFactory = new CoordinateTransformFactory();
         CoordinateTransform transform = transformFactory.createTransform(crsWGS84, crs2097);
@@ -47,8 +50,8 @@ public class pharmacyservice {
         // 결과 반환 (위도, 경도)
         //return new double[]{targetCoord.y, targetCoord.x};  // WGS84: (위도, 경도)
 
-        double latMin = targetCoord.y - 800;
-        double latMax = targetCoord.y + 800;
+        double latMin = targetCoord.y - 1600;
+        double latMax = targetCoord.y;
         double lonMin = targetCoord.x - 800;
         double lonMax = targetCoord.x + 800;
 
