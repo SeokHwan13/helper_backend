@@ -18,7 +18,7 @@ public class medicinecontroller {
 
 
     @GetMapping("/getmedicine")
-    public medicineAPI getMedicine(@RequestParam Integer itemSeq) {
+    public medicine getMedicine(@RequestParam Integer itemSeq) {
         return medicineservice.getMedicine(itemSeq);
 
     }

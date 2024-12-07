@@ -33,7 +33,9 @@ public class medicineservice {
     @Autowired
     private medicineRepository medicineRepository;
 
-    private final static String key = "BGtEWN1IlvSGC1CZ%2BAwVeqDJdURuUgqhYHbjcRclDEwiqmQurBgqccTKfFaiFQKvBnYEM64oe6tvsfov%2BNK1%2FA%3D%3D";
+    @Value("${api.service-key}")
+    private String key;
+
     private final static String[] efcyQesitm = {"감기","타박상","근육통","발열","두통","복통","치통"};
 
 
@@ -62,25 +64,27 @@ public class medicineservice {
 //        return response;
     }
 
-    public medicineAPI getMedicine(Integer itemSeq) {
-        var response =
-                webClient
-                        .get()
-                        .uri(uriBuilder ->
-                                uriBuilder
-                                        .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
-                                        .queryParam("serviceKey", key)
-                                        .queryParam("itemSeq", itemSeq)
-                                        .queryParam("pageNo", "1")
-                                        .queryParam("numOfRows", "10")
-                                        .queryParam("type", "json")
-                                        .build())
-                        .retrieve()
-                        .bodyToMono(medicineAPI.class)
-                        .block();
+    public medicine getMedicine(Integer itemSeq) {
 
-        assert response != null;
-        return response;
+        return medicineRepository.findById(itemSeq).get();
+//        var response =
+//                webClient
+//                        .get()
+//                        .uri(uriBuilder ->
+//                                uriBuilder
+//                                        .path("/DrbEasyDrugInfoService/getDrbEasyDrugList")
+//                                        .queryParam("serviceKey", key)
+//                                        .queryParam("itemSeq", itemSeq)
+//                                        .queryParam("pageNo", "1")
+//                                        .queryParam("numOfRows", "10")
+//                                        .queryParam("type", "json")
+//                                        .build())
+//                        .retrieve()
+//                        .bodyToMono(medicineAPI.class)
+//                        .block();
+//
+//        assert response != null;
+//        return response;
     }
 
     public List<medicine> getQueryMedicine(String query, Integer page) throws UnsupportedEncodingException {
