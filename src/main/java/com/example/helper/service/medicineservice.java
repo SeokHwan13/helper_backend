@@ -24,6 +24,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -104,12 +105,16 @@ public class medicineservice {
             //String filePath = "classpath:static/images/medicine/고프레티엘에프캡슐.jpg";
 
             Resource resource = resourceLoader.getResource(filePath);
-            Path path = resource.getFile().toPath();
-
-            // 파일을 Base64로 인코딩
-            byte[] fileBytes = Files.readAllBytes(path);
-
-            medicineList.get(i).setImage(fileBytes);
+            try (InputStream inputStream = resource.getInputStream()) {
+                byte[] fileBytes = inputStream.readAllBytes(); // InputStream으로 읽기
+                medicineList.get(i).setImage(fileBytes);
+            }
+//            Path path = resource.getFile().toPath();
+//
+//            // 파일을 Base64로 인코딩
+//            byte[] fileBytes = Files.readAllBytes(path);
+//
+//            medicineList.get(i).setImage(fileBytes);
         }
         return medicineList;
     }
