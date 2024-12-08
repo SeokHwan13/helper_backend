@@ -7,8 +7,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "medicine")
-public class medicine {
+@Table(name = "medicinee")
+public class medicinee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //식별id
@@ -36,9 +36,6 @@ public class medicine {
 
     @Column(name = "depositMethod") //보관법
     private String depositMethod;
-
-    @Column(name = "itemImage") //이미지
-    private String itemImage;
 
     @Transient // 데이터베이스에는 저장하지 않음
     private byte[] image;
