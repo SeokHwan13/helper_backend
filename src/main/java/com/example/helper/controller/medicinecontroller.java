@@ -39,7 +39,7 @@ public class medicinecontroller {
     }
 
     @GetMapping("/getquerymedicine")
-    public List<medicinee> getQueryMedicine(@RequestParam String query) throws UnsupportedEncodingException {
+    public List<medicinee> getQueryMedicine(@RequestParam String query) throws IOException {
         System.out.println(query);
         return medicineservice.getQueryMedicine(query,0);
     }

@@ -142,11 +142,28 @@ public class medicineservice {
 //        return response;
     }
 
-    public List<medicinee> getQueryMedicine(String query, Integer page) throws UnsupportedEncodingException {
+    public List<medicinee> getQueryMedicine(String query, Integer page) throws IOException {
         Pageable limitTen = PageRequest.of(0, 10); // 첫 페이지, 10개 제한
         String decodedValue = URLDecoder.decode(query, StandardCharsets.UTF_8.name());
-        System.out.println("abcde~~~~~: " + decodedValue);
-        return medicineeRepository.findByItemNameContainingKeyword(decodedValue,limitTen);
+        List<medicinee> medicineList = medicineeRepository.findByItemNameContainingKeyword(decodedValue, limitTen);
+
+        for (int i = 0; i < medicineList.size(); i++) {
+            String filePath = "classpath:static/images/medicine/"+ medicineList.get(i).getItemName() + ".jpg";
+            //String filePath = "classpath:static/images/medicine/고프레티엘에프캡슐.jpg";
+
+            Resource resource = resourceLoader.getResource(filePath);
+            try (InputStream inputStream = resource.getInputStream()) {
+                byte[] fileBytes = inputStream.readAllBytes(); // InputStream으로 읽기
+                medicineList.get(i).setImage(fileBytes);
+            }
+//            Path path = resource.getFile().toPath();
+//
+//            // 파일을 Base64로 인코딩
+//            byte[] fileBytes = Files.readAllBytes(path);
+//
+//            medicineList.get(i).setImage(fileBytes);
+        }
+        return medicineList;
     }
 //        var response =
 //                webClient
