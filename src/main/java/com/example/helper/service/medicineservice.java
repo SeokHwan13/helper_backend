@@ -1,18 +1,12 @@
 package com.example.helper.service;
 
-import com.example.helper.config.WebClientConfig;
 import com.example.helper.entity.medicine;
-import com.example.helper.entity.medicineAPI;
 import com.example.helper.entity.medicinee;
 import com.example.helper.entity.medicinetype;
 import com.example.helper.repository.medicineRepository;
 import com.example.helper.repository.medicineeRepository;
 import com.example.helper.repository.medicinetypeRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.example.helper.repository.pharmstorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -21,18 +15,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +37,9 @@ public class medicineservice {
 
     @Autowired
     private medicinetypeRepository medicinetypeRepository;
+
+    @Autowired
+    private pharmstorageRepository pharmstorageRepository;
 
     @Value("${api.service-key}")
     private String key;
@@ -87,6 +78,42 @@ public class medicineservice {
 //        }
 //    }
 
+//    Random random = new Random();
+//    public void insertStorageAll(Integer id, Integer remain, Integer dur) {
+//
+//        for(int i = 1; i < 9; i++) {
+//            pharmstorage ent = new pharmstorage();
+//            ent.setPharm_id(i);
+//            ent.setMedicine_id(id);
+//            ent.setRemain(remain - random.nextInt(dur));
+//            pharmstorageRepository.save(ent);
+//        }
+//    }
+//
+//    public void insertStorageRandom(Integer id, Integer remain, Integer dur,Integer num) {
+//
+//        List<Integer> numbers = new ArrayList<>();
+//        for (int i = 1; i <= 8; i++) {
+//            numbers.add(i);
+//        }
+//
+//        // 리스트를 섞음
+//        Collections.shuffle(numbers);
+//
+//        // 앞에서부터 4개의 숫자 선택
+//        List<Integer> selectedNumbers = numbers.subList(0, num);
+//
+//        for(int i = 1; i < num; i++) {
+//
+//            pharmstorage ent = new pharmstorage();
+//            random.nextInt();
+//            ent.setPharm_id(selectedNumbers.get(i));
+//            ent.setMedicine_id(id);
+//            ent.setRemain(remain - random.nextInt(dur));
+//            pharmstorageRepository.save(ent);
+//        }
+//    }
+
 
 
     public List<medicinee> getMedicineList(Integer efcy) throws IOException {
@@ -119,9 +146,20 @@ public class medicineservice {
         return medicineList;
     }
 
-    public medicinee getMedicine(Integer itemSeq) {
+    public medicinee getMedicine(Integer itemSeq) throws IOException {
 
-        return medicineeRepository.findById(itemSeq).get();
+
+        medicinee medicine = medicineeRepository.findById(itemSeq).get();
+        String filePath = "classpath:static/images/medicine/"+ medicine.getItemName() + ".jpg";
+        //String filePath = "classpath:static/images/medicine/고프레티엘에프캡슐.jpg";
+
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream()) {
+            byte[] fileBytes = inputStream.readAllBytes(); // InputStream으로 읽기
+            medicine.setImage(fileBytes);
+        }
+
+        return medicine;
 //        var response =
 //                webClient
 //                        .get()

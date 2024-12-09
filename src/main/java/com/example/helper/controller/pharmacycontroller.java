@@ -18,7 +18,5 @@ public class pharmacycontroller {
     public List<pharmacy> getMappharmacy(@RequestParam Double lat, @RequestParam Double lon) {
         return pharmacyservice.getpharmacylist(lat,lon);
     }
-    //        public List<pharmacy> getpharmacy(@RequestParam Double lat, @RequestParam Double lon) {
-//        return pharmacyservice.getpharmacy(19274);
-//    }
+
 }

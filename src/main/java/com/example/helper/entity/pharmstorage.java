@@ -1,8 +1,6 @@
 package com.example.helper.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +10,7 @@ import lombok.Setter;
 public class pharmstorage {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -19,8 +18,8 @@ public class pharmstorage {
     private Integer pharm_id;
 
     @Column(name = "medicine_id")
-    private String medicine_id;
+    private Integer medicine_id;
 
     @Column(name = "remain")
-    private String remain;
+    private Integer remain;
 }
