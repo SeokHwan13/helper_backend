@@ -11,7 +11,7 @@ import lombok.Setter;
 public class medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //식별id
+    private Integer id; //식별id
 
     @Column(name = "itemName") //제품명
     private String itemName;

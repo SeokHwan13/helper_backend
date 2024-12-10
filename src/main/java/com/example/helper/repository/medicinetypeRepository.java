@@ -1,6 +1,5 @@
 package com.example.helper.repository;
 
-import com.example.helper.entity.medicine;
 import com.example.helper.entity.medicinee;
 import com.example.helper.entity.medicinetype;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,7 @@ public interface medicinetypeRepository extends JpaRepository<medicinetype, Inte
     // medicine_id로 Medicine 리스트 가져오기
     @Query("SELECT m FROM medicinee m WHERE m.id IN :medicineIds")
     List<medicinee> findMedicinesByIds(
-            @Param("medicineIds") List<Long> medicineIds,
+            @Param("medicineIds") List<Integer> medicineIds,
             Pageable pageable
     );
 }

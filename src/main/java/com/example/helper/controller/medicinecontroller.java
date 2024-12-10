@@ -1,6 +1,7 @@
 package com.example.helper.controller;
 
 import com.example.helper.entity.medicinee;
+import com.example.helper.service.medicineservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,8 +12,9 @@ import java.util.List;
 
 @RestController
 public class medicinecontroller {
+
     @Autowired
-    private com.example.helper.service.medicineservice medicineservice;
+    private medicineservice medicineservice;
 
 
 //    @GetMapping("/newmed")

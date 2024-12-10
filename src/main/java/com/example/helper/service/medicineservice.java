@@ -119,7 +119,7 @@ public class medicineservice {
     public List<medicinee> getMedicineList(Integer efcy) throws IOException {
 
         List<medicinetype> medicinetypes = medicinetypeRepository.findByType(efcy);
-        List<Long> medicineIds = medicinetypes.stream()
+        List<Integer> medicineIds = medicinetypes.stream()
                 .map(medicinetype::getMedicine)
                 .map(medicine::getId)
                 .collect(Collectors.toList()).reversed();
