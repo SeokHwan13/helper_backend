@@ -81,7 +81,7 @@ public class medicineservice {
 //    Random random = new Random();
 //    public void insertStorageAll(Integer id, Integer remain, Integer dur) {
 //
-//        for(int i = 1; i < 9; i++) {
+//        for(int i = 9; i < 13; i++) {
 //            pharmstorage ent = new pharmstorage();
 //            ent.setPharm_id(i);
 //            ent.setMedicine_id(id);
@@ -93,17 +93,17 @@ public class medicineservice {
 //    public void insertStorageRandom(Integer id, Integer remain, Integer dur,Integer num) {
 //
 //        List<Integer> numbers = new ArrayList<>();
-//        for (int i = 1; i <= 8; i++) {
+//        for (int i = 9; i <= 12; i++) {
 //            numbers.add(i);
 //        }
 //
 //        // 리스트를 섞음
 //        Collections.shuffle(numbers);
 //
-//        // 앞에서부터 4개의 숫자 선택
+//
 //        List<Integer> selectedNumbers = numbers.subList(0, num);
 //
-//        for(int i = 1; i < num; i++) {
+//        for(int i = 1; i < selectedNumbers.size(); i++) {
 //
 //            pharmstorage ent = new pharmstorage();
 //            random.nextInt();

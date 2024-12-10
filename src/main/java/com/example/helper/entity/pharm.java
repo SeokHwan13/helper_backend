@@ -24,4 +24,10 @@ public class pharm {
 
     @Column(name = "phone")
     String phone;
+
+    @Column(name = "daytime")
+    String daytime;
+
+    @Column(name = "address")
+    String address;
 }
